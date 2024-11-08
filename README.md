@@ -1,0 +1,1 @@
+This project follows the Ruby Hashmap lesson available at https://www.theodinproject.com/lessons/ruby-hashmap
