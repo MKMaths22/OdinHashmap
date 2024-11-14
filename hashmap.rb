@@ -1,4 +1,7 @@
 class HashMap
+    
+    require './linkedlist'
+    
     def hash(key)
         hash_code = 0
         prime_number = 31
