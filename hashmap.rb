@@ -18,6 +18,7 @@ class HashMap
 
     def need_to_grow_buckets?
         @entries > (@load_factor * @capacity)
+        # will be private in final version
     end
 
     def set(key, value)
@@ -54,10 +55,19 @@ class HashMap
 end
 
 class Bucket
-    def initialize
-        @bucket_state = 'empty'
-        # bucket_state will be 'empty', 'onenode' or 'linkedlist' for 0,1, or 2 or more entries respectively
+    def initialize(keys_array = [], values_array = [])
+        @keys_array = keys_array
+        @values_array = values_array
+        @bucket_list = nil
+        @bucket_one_node = nil
+        populate_bucket
+    end
+
+    def populate_bucket
+        
     end
 end
 
-hash = HashMap.new
+# hash = HashMap.new
+# list = LinkedList.new(['a', 'b'], ['1'])
+# puts "List head is #{list.head}, with key #{list.head.key} and value #{list.head.value} \n The next key is #{list.head.next_node.key} with value #{list.head.next_node.value}"
