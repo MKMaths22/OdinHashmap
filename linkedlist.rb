@@ -6,12 +6,13 @@ class LinkedList
   
     # size and head methods taken care of by attr_reader
   
-    def initialize(values_array = [])
+    def initialize(keys_array = [], values_array = [])
       previous_node = nil
       @head = nil
-      @size = values_array.size
-      values_array.each_with_index do |value, index|
-        current_node = Node.new(value)
+      @size = keys_array.size
+      keys_array.each_with_index do |key, index|
+        current_node = Node.new(key, values_array[index])
+        # if values array is too short for keys array nil values will be used. If too many values in values array, excess values are ignored
         index.zero? ? change_head(current_node) : previous_node.next_node = current_node
         # either we are dealing with the head node or there is a previous node, but not both
         previous_node = current_node
@@ -56,25 +57,35 @@ class LinkedList
       false
       # returns false only if none of the nodes had the required value
     end
+
+    def contains?(key)
+      list_each_with_index(false) { |node| return true if node.key == key }
+      false
+    end
   
     def find(value)
       list_each_with_index(nil) { |node, index| return index if node.value == value }
       nil
       # returns nil if list is empty or if no node had the required value
     end
+
+    def find(key)
+        list_each_with_index(nil) { |node, index| return index if node.key == key }
+        nil
+    end
   
     def to_s
       output_string = ''
-      list_each_with_index { |node| output_string += "( #{node.value} ) -> " }
+      list_each_with_index { |node| output_string += "( Key: #{node.key} ), Value: #{node.value} -> " }
       output_string + 'nil'
     end
   
-    def insert_at(value, index)
+    def insert_at(key, value, index)
       return 'Error, index not valid' unless valid_index?(index, size)
   
       # checks index provided will fit in the given list
   
-      node_to_add = Node.new(value, at(index))
+      node_to_add = Node.new(key, value, at(index))
       # if index = size, at(index) returns nil which is correct
   
       index.zero? ? change_head(node_to_add) : at(index - 1).next_node = node_to_add
@@ -96,12 +107,12 @@ class LinkedList
       removed_node
     end
   
-    def prepend(value)
-      insert_at(value, 0)
+    def prepend(key, value)
+      insert_at(key, value, 0)
     end
   
-    def append(value)
-      insert_at(value, size)
+    def append(key, value)
+      insert_at(key, value, size)
     end
   
     def pop
@@ -125,9 +136,10 @@ class LinkedList
   
   # The Node class contains methods for nodes of a linked list
   class Node
-    attr_accessor :value, :next_node
+    attr_accessor :key, :value, :next_node
   
-    def initialize(value = nil, next_node = nil)
+    def initialize(key = nil, value = nil, next_node = nil)
+      @key = key
       @value = value
       @next_node = next_node
     end
