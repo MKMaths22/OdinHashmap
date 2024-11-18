@@ -4,9 +4,9 @@ class HashMap
 
     def initialize(load_factor = 0.75, capacity = 16)
         @capacity = capacity
-        @buckets = Array.new(capacity) { Bucket.new }
+        @buckets = Array.new(capacity) { LinkedList.new }
         @load_factor = load_factor
-        @entries = 0
+        @entries_counter = 0
     end
     
     def hash(key)
@@ -51,13 +51,6 @@ class HashMap
 
     def entries
 
-    end
-end
-
-class Bucket
-    def initialize
-        @bucket_list = nil
-        @bucket_one_node = nil
     end
 end
 
