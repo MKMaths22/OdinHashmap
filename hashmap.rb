@@ -55,16 +55,9 @@ class HashMap
 end
 
 class Bucket
-    def initialize(keys_array = [], values_array = [])
-        @keys_array = keys_array
-        @values_array = values_array
+    def initialize
         @bucket_list = nil
         @bucket_one_node = nil
-        populate_bucket
-    end
-
-    def populate_bucket
-        
     end
 end
 
