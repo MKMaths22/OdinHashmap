@@ -22,6 +22,25 @@ class HashMap
     end
 
     def set(key, value)
+        bucket_number = hash(key) % @capacity
+        linked_list = @buckets[bucket_number]
+        linked_list.list_each_with_index do |node|
+            if node.key == key
+                node.value == value
+                return
+            end
+            next if node.next_node
+            new_node = Node.new(key, value, nil)
+            node.next_node = new_node
+            # PROBLEM here, want to tell linked list to increment it's size but that is a private method.
+            # If I use the insert_at, or prepend methods to add to the end of the list, the list is
+            # being traversed for a second time. How to avoid this?
+            # SOLUTION: I have already changed the Node class to include keys and values, so modify the LinkedList methods
+            # to only allow unique keys. Redundant methods from the old LinkedList class can be removed later. In the
+            # meantime, give the LinkedList a #appendorupdate method which accepts (key, value) and either updates or appends as 
+            # necessary. Because it is a LinkedList method, it can use the private #increment_size method. Similarly for
+            # deleting from the Hashmap and decrement_size.
+        end
 
     end
 
