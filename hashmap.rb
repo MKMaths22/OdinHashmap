@@ -24,7 +24,7 @@ class HashMap
     def set(key, value)
         bucket_number = hash(key) % @capacity
         linked_list = @buckets[bucket_number]
-        unless linked_list.append_or_update(key, value) == 'updated'
+        unless linked_list.prepend_or_update(key, value) == 'updated'
             @entries_counter = @entries_counter + 1
             grow_buckets if need_to_grow_buckets?
         end

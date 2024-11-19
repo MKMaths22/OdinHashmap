@@ -7,15 +7,14 @@ class LinkedList
     # size and head methods taken care of by attr_reader
   
     def initialize(keys_array = [], values_array = [])
-      previous_node = nil
+      # only works if the keys are unique. Could write code that checks this, but this is
+      # not relevant for the Hashmap project.
       @head = nil
       @size = keys_array.size
       keys_array.each_with_index do |key, index|
-        current_node = Node.new(key, values_array[index])
+        current_node = Node.new(key, values_array[index], @head)
+        @head = current_node
         # if values array is too short for keys array nil values will be used. If too many values in values array, excess values are ignored
-        index.zero? ? change_head(current_node) : previous_node.next_node = current_node
-        # either we are dealing with the head node or there is a previous node, but not both
-        previous_node = current_node
       end
     end
   
@@ -107,9 +106,9 @@ class LinkedList
       removed_node
     end
   
-    def prepend(key, value)
-      insert_at(key, value, 0)
-    end
+    # def prepend(key, value)
+    #   insert_at(key, value, 0)
+    # end
   
     def append(key, value)
       insert_at(key, value, size)
@@ -120,23 +119,41 @@ class LinkedList
     end
 
     # Many methods in this class will be redundant for the Hashmap, I will delete them later as necessary
-    def append_or_update(key, value)
-        if @size.zero?
-            @head = Node.new(key, value, nil)
-            increment_size
-            return
-        end
+    def prepend_or_update(key, value)
+        update(key, value) ? 'updated' : prepend(key, value)
+    end
+
+    def update(key, value)
+        # returns the node updated, or nil if key was not present
         list_each_with_index do |node|
             if node.key == key
                 node.value = value
-                return 'updated'
-                # the Hashmap wants to know that the LinkedList did not grow in this case.
+                return node
             end
-            next if node.next_node
-            node.next_node = Node.new(key, value, nil)
-            increment_size
         end
     end
+
+    def prepend(key, value)
+        @head = Node.new(key, value, @head)
+        increment_size
+    end
+        
+    #   if @size.zero?
+    #        @head = Node.new(key, value, nil)
+    #        increment_size
+    #        return
+    #    end
+    #    list_each_with_index do |node|
+    #        if node.key == key
+    #            node.value = value
+    #            return 'updated'
+    #            # the Hashmap wants to know that the LinkedList did not grow in this case.
+    #        end
+    #        next if node.next_node
+    #        node.next_node = Node.new(key, value, nil)
+    #        increment_size
+    #    end
+    #  end
   
     private
   
