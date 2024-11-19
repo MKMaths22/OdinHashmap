@@ -123,13 +123,14 @@ class LinkedList
     def append_or_update(key, value)
         if @size.zero?
             @head = Node.new(key, value, nil)
-            increment size
+            increment_size
             return
         end
         list_each_with_index do |node|
             if node.key == key
                 node.value = value
-                return
+                return 'updated'
+                # the Hashmap wants to know that the LinkedList did not grow in this case.
             end
             next if node.next_node
             node.next_node = Node.new(key, value, nil)
