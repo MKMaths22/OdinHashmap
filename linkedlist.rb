@@ -118,6 +118,24 @@ class LinkedList
     def pop
       remove_at(size - 1)
     end
+
+    # Many methods in this class will be redundant for the Hashmap, I will delete them later as necessary
+    def append_or_update(key, value)
+        if @size.zero?
+            @head = Node.new(key, value, nil)
+            increment size
+            return
+        end
+        list_each_with_index do |node|
+            if node.key == key
+                node.value = value
+                return
+            end
+            next if node.next_node
+            node.next_node = Node.new(key, value, nil)
+            increment_size
+        end
+    end
   
     private
   

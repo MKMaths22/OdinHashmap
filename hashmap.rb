@@ -17,7 +17,7 @@ class HashMap
     end
 
     def need_to_grow_buckets?
-        @entries > (@load_factor * @capacity)
+        @entries_counter > (@load_factor * @capacity)
         # will be private in final version
     end
 
