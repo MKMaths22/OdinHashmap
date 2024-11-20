@@ -13,7 +13,7 @@ class LinkedList
       @size = keys_array.size
       keys_array.each_with_index do |key, index|
         current_node = Node.new(key, values_array[index], @head)
-        @head = current_node
+        change_head(current_node)
         # if values array is too short for keys array nil values will be used. If too many values in values array, excess values are ignored
       end
     end
@@ -134,7 +134,13 @@ class LinkedList
     end
 
     def prepend(key, value)
-        @head = Node.new(key, value, @head)
+        change_head(Node.new(key, value, @head))
+        increment_size
+    end
+
+    def prepend_node(node)
+        node.next_node = @head
+        change_head(node)
         increment_size
     end
         

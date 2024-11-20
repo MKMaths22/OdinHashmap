@@ -31,7 +31,16 @@ class HashMap
     end
 
     def grow_buckets
-        
+        new_capacity = 2 * @capacity
+        new_buckets = Array.new(new_capacity) { LinkedList.new }
+        @buckets.each do |list|
+            # we can prepend each node onto its new LinkedList without checking for duplicate keys, because they are already unique
+            list.list_each_with_index do |node|
+                bucket_number = hash(key) % new_capacity
+                new_list = new_buckets[bucket_number]
+                new_list.prepend_node(node)
+            end
+        end
     end
     # PROBLEM here, want to tell linked list to increment it's size but that is a private method.
             # If I use the insert_at, or prepend methods to add to the end of the list, the list is
