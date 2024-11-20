@@ -2,11 +2,13 @@ class HashMap
     
     require './linkedlist'
 
+    attr_reader :length :capacity :load_factor :buckets
+
     def initialize(load_factor = 0.75, capacity = 16)
         @capacity = capacity
         @buckets = Array.new(capacity) { LinkedList.new }
         @load_factor = load_factor
-        @entries_counter = 0
+        @length = 0
     end
     
     def hash(key)
@@ -16,16 +18,11 @@ class HashMap
         hash_code
     end
 
-    def need_to_grow_buckets?
-        @entries_counter > (@load_factor * @capacity)
-        # will be private in final version
-    end
-
     def set(key, value)
         bucket_number = hash(key) % @capacity
         linked_list = @buckets[bucket_number]
         unless linked_list.prepend_or_update(key, value) == 'updated'
-            @entries_counter = @entries_counter + 1
+            increment_length
             grow_buckets if need_to_grow_buckets?
         end
     end
@@ -41,6 +38,8 @@ class HashMap
                 new_list.prepend_node(node)
             end
         end
+        @buckets = new_buckets
+        @capacity = new_capacity
     end
     # PROBLEM here, want to tell linked list to increment it's size but that is a private method.
             # If I use the insert_at, or prepend methods to add to the end of the list, the list is
@@ -64,7 +63,7 @@ class HashMap
     end
 
     def length
-
+        # dealt with by attr_reader
     end
 
     def keys
@@ -77,6 +76,20 @@ class HashMap
 
     def entries
 
+    end
+
+    private
+
+    def need_to_grow_buckets?
+        @length > (@load_factor * @capacity)
+    end
+    
+    def increment_length
+        @length = length + 1
+    end
+
+    def decrement_length
+        @length = length - 1
     end
 end
 
