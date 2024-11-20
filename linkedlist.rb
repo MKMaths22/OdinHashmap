@@ -75,7 +75,7 @@ class LinkedList
   
     def to_s
       output_string = ''
-      list_each_with_index { |node| output_string += "( Key: #{node.key} ), Value: #{node.value} -> " }
+      list_each_with_index { |node| output_string += " Key: #{node.key}, Value: #{node.value} -> " }
       output_string + 'nil'
     end
   
@@ -181,7 +181,11 @@ class LinkedList
     end
   end
   
-  # my_list = LinkedList.new([1, 2, 4, 5])
+  my_list = LinkedList.new(['name', 'age'], ['Peter', '43'])
+  puts "my_list is #{my_list}"
+  my_list.prepend('new_key', 'new_value')
+  puts "my_list is now #{my_list}"
+  
   # my_list.remove_at(0)
   # puts my_list.find(4)
   # p my_list.remove_at(0)
