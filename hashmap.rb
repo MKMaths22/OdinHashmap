@@ -19,8 +19,7 @@ class HashMap
     end
 
     def set(key, value)
-        bucket_number = hash(key) % @capacity
-        linked_list = @buckets[bucket_number]
+        linked_list = linked_list_from_key(key)
         unless linked_list.prepend_or_update(key, value) == 'updated'
             increment_length
             grow_buckets if need_to_grow_buckets?
@@ -51,15 +50,15 @@ class HashMap
             # deleting from the Hashmap and decrement_size.
 
     def get(key)
-
+      linked_list_from_key(key).get_value(key)
     end
 
     def has?(key)
-
+      linked_list_from_key(key).contains?(key)
     end
 
     def remove(key)
-
+      linked_list_from_key(key).remove_key(key)
     end
 
     def length
@@ -80,6 +79,12 @@ class HashMap
 
     private
 
+    def linked_list_from_key(key)
+      # returns the linked_list object associated with a key
+      bucket_number = hash(key) % @capacity
+      @buckets[bucket_number]
+    end
+    
     def need_to_grow_buckets?
         @length > (@load_factor * @capacity)
     end

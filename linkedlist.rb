@@ -68,8 +68,28 @@ class LinkedList
       # returns nil if list is empty or if no node had the required value
     end
 
+    def get_value(key)
+      list_each_with_index(nil) { |node, index| return node.value if node.key == key }
+      nil
+      # returns nil if list is empty or if no node has the required key
+    end
+
     def find(key)
         list_each_with_index(nil) { |node, index| return index if node.key == key }
+        nil
+    end
+
+    def remove_key(key)
+        list_each_with_index do |current_node, index|
+          previous_node = previous_node.next_node if previous_node
+          previous_node = @head if index == 1
+          if current_node.key == key
+            remove_current_node(current_node, previous_node)
+            # need to check WHETHER this causes bug when previous_node does not exist. Does nil get supplied instead?
+            # remove_current_node CAN handle a previous_node = nil case
+            return current_node.value
+          end
+        end
         nil
     end
   
@@ -143,23 +163,6 @@ class LinkedList
         change_head(node)
         increment_size
     end
-        
-    #   if @size.zero?
-    #        @head = Node.new(key, value, nil)
-    #        increment_size
-    #        return
-    #    end
-    #    list_each_with_index do |node|
-    #        if node.key == key
-    #            node.value = value
-    #            return 'updated'
-    #            # the Hashmap wants to know that the LinkedList did not grow in this case.
-    #        end
-    #        next if node.next_node
-    #        node.next_node = Node.new(key, value, nil)
-    #        increment_size
-    #    end
-    #  end
   
     private
   
@@ -173,6 +176,11 @@ class LinkedList
   
     def decrement_size
       @size = size - 1
+    end
+
+    def remove_current_node(current_node, previous_node = nil)
+      previous_node ? previous_node.next_node = current_node.next_node : change_head(current_node.next_node)
+      decrement_size
     end
   end
   
