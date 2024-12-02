@@ -98,6 +98,24 @@ class LinkedList
       list_each_with_index { |node| output_string += " Key: #{node.key}, Value: #{node.value} -> " }
       output_string + 'nil'
     end
+
+    def output_keys
+      output_array = []
+      list_each_with_index { |node| output_array.push(node.key) }
+      output_array
+    end
+
+    def output_values
+      output_array = []
+      list_each_with_index { |node| output_array.push(node.value) }
+      output_array
+    end
+
+    def output_entries
+      output_array = []
+      list_each_with_index { |node| output_array.push([node.key, node.value]) }
+      output_array
+    end
   
     def insert_at(key, value, index)
       return 'Error, index not valid' unless valid_index?(index, size)
@@ -196,9 +214,10 @@ class LinkedList
   end
   
   my_list = LinkedList.new(['name', 'age'], ['Peter', '43'])
-  puts "my_list is #{my_list}"
+  puts "my_list keys are #{my_list.output_keys}"
+  puts "the values are #{my_list.output_values}"
   my_list.prepend('new_key', 'new_value')
-  puts "my_list is now #{my_list}"
+  puts "my_list entries are now #{my_list.output_entries}"
   
   # my_list.remove_at(0)
   # puts my_list.find(4)

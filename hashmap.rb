@@ -58,13 +58,15 @@ class HashMap
     end
 
     def remove(key)
-      linked_list_from_key(key).remove_key(key)
+      output = linked_list_from_key(key).remove_key(key)
+      decrement_length if output
+      output
     end
 
-    def length
-        # dealt with by attr_reader
-    end
+    def clear
 
+    end
+    
     def keys
 
     end
