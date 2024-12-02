@@ -64,19 +64,36 @@ class HashMap
     end
 
     def clear
-
+      initialize
     end
     
     def keys
-
+      output_array = []
+      @buckets.each do |list|
+        list.output_data(:key).each do |key|
+          output_array.push(key)
+        end
+      end
+      output_array
     end
 
     def values
-
+      output_array = []
+      @buckets.each do |list|
+        list.output_data(:value).each do |value|
+          output_array.push(value)
+        end
+      end
+      output_array
     end
 
     def entries
-
+      output_array = []
+      @buckets.each do |list|
+        list.output_entries.each do |entry|
+        output_array.push(entry)
+      end
+      output_array
     end
 
     private
