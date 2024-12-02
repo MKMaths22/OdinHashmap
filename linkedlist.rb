@@ -99,21 +99,16 @@ class LinkedList
       output_string + 'nil'
     end
 
-    def output_keys
-      output_array = []
-      list_each_with_index { |node| output_array.push(node.key) }
-      output_array
-    end
-
-    def output_values
-      output_array = []
-      list_each_with_index { |node| output_array.push(node.value) }
-      output_array
-    end
-
     def output_entries
       output_array = []
       list_each_with_index { |node| output_array.push([node.key, node.value]) }
+      output_array
+    end
+
+    def output_data(data)
+      # uses send method so data should be (:key) or (:value) as required
+      output_array = []
+      list_each_with_index { |node| output_array.push(node.send(data)) }
       output_array
     end
   
@@ -214,10 +209,10 @@ class LinkedList
   end
   
   my_list = LinkedList.new(['name', 'age'], ['Peter', '43'])
-  puts "my_list keys are #{my_list.output_keys}"
-  puts "the values are #{my_list.output_values}"
+  puts "my_list keys are #{my_list.output_data(:key)}"
+  puts "the values are #{my_list.output_data(:value)}"
   my_list.prepend('new_key', 'new_value')
-  puts "my_list entries are now #{my_list.output_entries}"
+  puts "my_list entries are now #{my_list.}"
   
   # my_list.remove_at(0)
   # puts my_list.find(4)
