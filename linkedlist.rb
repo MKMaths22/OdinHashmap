@@ -164,6 +164,7 @@ class LinkedList
                 return node
             end
         end
+        nil
     end
 
     def prepend(key, value)
@@ -208,11 +209,11 @@ class LinkedList
     end
   end
   
-  my_list = LinkedList.new(['name', 'age'], ['Peter', '43'])
-  puts "my_list keys are #{my_list.output_data(:key)}"
-  puts "the values are #{my_list.output_data(:value)}"
-  my_list.prepend('new_key', 'new_value')
-  puts "my_list entries are now #{my_list.}"
+  # my_list = LinkedList.new(['name', 'age'], ['Peter', '43'])
+  # puts "my_list keys are #{my_list.output_data(:key)}"
+  # puts "the values are #{my_list.output_data(:value)}"
+  # my_list.prepend('new_key', 'new_value')
+  # puts "my_list entries are now #{my_list}"
   
   # my_list.remove_at(0)
   # puts my_list.find(4)

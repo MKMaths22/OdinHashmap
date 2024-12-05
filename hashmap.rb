@@ -2,7 +2,7 @@ class HashMap
     
     require './linkedlist'
 
-    attr_reader :length :capacity :load_factor :buckets
+    attr_reader :length, :capacity, :load_factor, :buckets
 
     def initialize(load_factor = 0.75, capacity = 16)
         @capacity = capacity
@@ -20,6 +20,7 @@ class HashMap
 
     def set(key, value)
         linked_list = linked_list_from_key(key)
+        puts "Bucket used for #{key} is #{linked_list}."
         unless linked_list.prepend_or_update(key, value) == 'updated'
             increment_length
             grow_buckets if need_to_grow_buckets?
@@ -115,6 +116,14 @@ class HashMap
       get_data(:key)
     end
 
+    def no_of_buckets_used
+      output = 0
+      @buckets.each do |list|
+        output = output + 1 if list.head
+      end
+      output
+    end
+
     private
 
     def linked_list_from_key(key)
@@ -136,6 +145,19 @@ class HashMap
     end
 end
 
-# hash = HashMap.new
-# list = LinkedList.new(['a', 'b'], ['1'])
-# puts "List head is #{list.head}, with key #{list.head.key} and value #{list.head.value} \n The next key is #{list.head.next_node.key} with value #{list.head.next_node.value}"
+test = HashMap.new
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'grey')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+# test.set('ice cream', 'white')
+# test.set('jacket', 'blue')
+# test.set('kite', 'pink')
+# test.set('lion', 'golden')
+puts "Number of buckets used is #{test.no_of_buckets_used}"
+puts "Length of hashmap is #{test.length}"
+puts "Entries are #{test.entries}"
