@@ -67,33 +67,52 @@ class HashMap
       initialize
     end
     
-    def keys
+    # def keys
+    #  output_array = []
+    #  @buckets.each do |list|
+    #    list.output_data(:key).each do |key|
+    #      output_array.push(key)
+    #    end
+    #  end
+    #  output_array
+    # end
+
+    # def values
+    #  output_array = []
+    #  @buckets.each do |list|
+    #    list.output_data(:value).each do |value|
+    #      output_array.push(value)
+    #    end
+    #  end
+    #  output_array
+    # end
+
+    def entries
       output_array = []
       @buckets.each do |list|
-        list.output_data(:key).each do |key|
-          output_array.push(key)
+        list.output_entries.each do |entry|
+          output_array.push(entry)
+        end
+      end
+      output_array
+    end
+
+    def get_data(data)
+      output_array = []
+      @buckets.each do |list|
+        list.output_data(data).each do |datum|
+          output_array.push(datum)
         end
       end
       output_array
     end
 
     def values
-      output_array = []
-      @buckets.each do |list|
-        list.output_data(:value).each do |value|
-          output_array.push(value)
-        end
-      end
-      output_array
+      get_data(:value)
     end
 
-    def entries
-      output_array = []
-      @buckets.each do |list|
-        list.output_entries.each do |entry|
-        output_array.push(entry)
-      end
-      output_array
+    def keys
+      get_data(:key)
     end
 
     private
