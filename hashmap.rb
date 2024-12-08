@@ -33,9 +33,11 @@ class HashMap
         @buckets.each do |list|
             # we can prepend each node onto its new LinkedList without checking for duplicate keys, because they are already unique
             list.list_each_with_index do |node|
-                bucket_number = hash(key) % new_capacity
+                bucket_number = hash(node.key) % new_capacity
                 new_list = new_buckets[bucket_number]
-                new_list.prepend_node(node)
+                new_list.prepend_node(Node.new(node.key, node.value))
+                # we need to make a copy to prepend the node to the new list, otherwise 
+                # the behaviour of list_each_with_index is affected because the node.next_node changes.
             end
         end
         @buckets = new_buckets
@@ -148,16 +150,24 @@ end
 test = HashMap.new
 test.set('apple', 'red')
 test.set('banana', 'yellow')
+test.set('ice cream', 'brown')
 test.set('carrot', 'orange')
 test.set('dog', 'brown')
 test.set('elephant', 'grey')
 test.set('frog', 'green')
 test.set('grape', 'purple')
 test.set('hat', 'black')
-# test.set('ice cream', 'white')
-# test.set('jacket', 'blue')
-# test.set('kite', 'pink')
-# test.set('lion', 'golden')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
+test.set('apple', 'pink')
 puts "Number of buckets used is #{test.no_of_buckets_used}"
 puts "Length of hashmap is #{test.length}"
 puts "Entries are #{test.entries}"
+puts "Capacity is #{test.capacity}"
+test.set('moon', 'silver')
+puts "Number of buckets used is #{test.no_of_buckets_used}"
+puts "Length of hashmap is #{test.length}"
+puts "Entries are #{test.entries}"
+puts "Capacity is #{test.capacity}"
