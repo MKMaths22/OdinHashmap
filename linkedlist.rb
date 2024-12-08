@@ -138,11 +138,7 @@ class LinkedList
       decrement_size
       removed_node
     end
-  
-    # def prepend(key, value)
-    #   insert_at(key, value, 0)
-    # end
-  
+
     def append(key, value)
       insert_at(key, value, size)
     end

@@ -20,7 +20,6 @@ class HashMap
 
     def set(key, value)
         linked_list = linked_list_from_key(key)
-        puts "Bucket used for #{key} is #{linked_list}."
         unless linked_list.prepend_or_update(key, value) == 'updated'
             increment_length
             grow_buckets if need_to_grow_buckets?
@@ -70,26 +69,6 @@ class HashMap
       initialize
     end
     
-    # def keys
-    #  output_array = []
-    #  @buckets.each do |list|
-    #    list.output_data(:key).each do |key|
-    #      output_array.push(key)
-    #    end
-    #  end
-    #  output_array
-    # end
-
-    # def values
-    #  output_array = []
-    #  @buckets.each do |list|
-    #    list.output_data(:value).each do |value|
-    #      output_array.push(value)
-    #    end
-    #  end
-    #  output_array
-    # end
-
     def entries
       output_array = []
       @buckets.each do |list|
@@ -162,10 +141,6 @@ test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
 test.set('apple', 'pink')
-puts "Number of buckets used is #{test.no_of_buckets_used}"
-puts "Length of hashmap is #{test.length}"
-puts "Entries are #{test.entries}"
-puts "Capacity is #{test.capacity}"
 test.set('moon', 'silver')
 puts "Number of buckets used is #{test.no_of_buckets_used}"
 puts "Length of hashmap is #{test.length}"
