@@ -16,39 +16,52 @@ class HashMapTest < Minitest::Test
   end
     
   def test_get_with_present_key 
-    assert_equal(@hash_of_twelve.get(@keys_array[6]), @values_array[6], 'Failed to retrieve correct value')
-    assert_equal(@hash_of_thirteen.get('moon'), 'silver', 'Failed to retrieve correct value')
+    assert_equal(@hash_of_twelve.get(@keys_array[6]), @values_array[6], 'Failed to retrieve correct value.')
+    assert_equal(@hash_of_thirteen.get('moon'), 'silver', 'Failed to retrieve correct value.')
   end
 
   def test_get_with_absent_key
-    assert_nil(@hash_of_twelve.get('moon'), 'Did not give nil value when getting absent key')
+    assert_nil(@hash_of_twelve.get('moon'), 'Did not give nil value when getting absent key.')
+    assert_nil(@hash_of_thirteen.get('Peter'), 'Did not give nil value when getting absent key.')
   end
   
   def test_capacity
-    assert_equal(@hash_of_twelve.capacity, 16, 'Capacity not 16 with length 12')
-    assert_equal(@hash_of_thirteen.capacity, 32, 'Capacity not 32 with length 13')
+    assert_equal(@hash_of_twelve.capacity, 16, 'Capacity not 16 with length 12.')
+    assert_equal(@hash_of_thirteen.capacity, 32, 'Capacity not 32 with length 13.')
   end
   
   def test_has_present_key
-    assert(@hash_of_twelve.has?(@keys_array[0]), 'Failed to find key')
-    assert(@hash_of_thirteen.has?('moon'), 'Failed to find key after capacity doubled')
+    assert(@hash_of_twelve.has?(@keys_array[0]), 'Failed to find key.')
+    assert(@hash_of_thirteen.has?('moon'), 'Failed to find key after capacity doubled.')
   end
 
   def test_has_absent_key
-    assert_equal(@hash_of_twelve.has?('moon'), false, 'Found absent key')
-    assert_equal(@hash_of_thirteen.has?('Peter'), false, 'Found absent key')
+    assert_equal(@hash_of_twelve.has?('moon'), false, 'Found absent key.')
+    assert_equal(@hash_of_thirteen.has?('Peter'), false, 'Found absent key.')
   end
 
-  def remove_present_key
-
+  def test_return_value_when_remove_present_key
+    assert_equal(@hash_of_twelve.remove(@keys_array[0]), @values_array[0], 'Did not return value of removed key.')
+    assert_equal(@hash_of_thirteen.remove(@keys_array[6]), @values_array[6], 'Did not return value of removed key.')
   end
 
-  def remove_absent_key
+  def test_return_value_when_remove_absent_key
+    assert_nil(@hash_of_twelve.remove('moon'), 'Failed to return nil when removing absent key.')
+    assert_nil(@hash_of_thirteen.remove('Peter'), 'Failed to return nil when removing absent key.' )
+  end
 
+  def test_hash_state_after_removing_present_key
+    @hash_of_twelve.remove(@keys_array[0])
+    assert_nil(@hash_of_twelve.get(@keys_array[0]), 'Gave a value for a removed key.')
+    assert_equal(@hash_of_twelve.length, 11, 'Removing key failed to reduce hash length.')
+    @hash_of_thirteen.remove(@keys_array[8])
+    assert_nil(@hash_of_thirteen.get(@keys_array[8]), 'Gave a value for a removed key.')
+    assert_equal(@hash_of_thirteen.length, 12, 'Removing a key failed to reduce hash length.')
   end
 
   def test_length
-    assert_equal(@hash_of_twelve.length, 12, 'Length not correct')
+    assert_equal(@hash_of_twelve.length, 12, 'Length not correct.')
+    assert_equal(@hash_of_thirteen.length, 13, 'Length not correct.')
   end
 
   def test_clear
