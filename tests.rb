@@ -65,11 +65,16 @@ class HashMapTest < Minitest::Test
   end
 
   def test_clear
-
+    @hash_of_twelve.clear
+    assert_equal(@hash_of_twelve.length, 0, 'Clear method failed to make length zero.')
+    assert_nil(@hash_of_twelve.get(@keys_array[9]), 'Clear method did not remove every key.')
   end
 
   def test_keys
-
+    assert_equal(@hash_of_twelve.keys.sort, @keys_array.sort, 'Keys method did not return the supplied keys.')
+    assert_equal(@hash_of_thirteen.keys.sort, @keys_array.push('moon').sort, 'Keys method did not return the supplied keys.')
+    # these tests work because the @keys_array, followed by 'moon' are alphabetically comparable, otherwise
+    # the sort method is not necessarily stable.
   end
 
   def test_values
