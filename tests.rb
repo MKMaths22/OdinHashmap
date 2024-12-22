@@ -73,16 +73,22 @@ class HashMapTest < Minitest::Test
   def test_keys
     assert_equal(@hash_of_twelve.keys.sort, @keys_array.sort, 'Keys method did not return the supplied keys.')
     assert_equal(@hash_of_thirteen.keys.sort, @keys_array.push('moon').sort, 'Keys method did not return the supplied keys.')
-    # these tests work because the @keys_array, followed by 'moon' are alphabetically comparable, otherwise
+    # these tests work because the entries in @keys_array, followed by 'moon' are alphabetically comparable, otherwise
     # the sort method is not necessarily stable.
   end
 
   def test_values
-
+    assert_equal(@hash_of_twelve.values.sort, @values_array.sort, 'Values method did not return the supplied values.')
+    assert_equal(@hash_of_thirteen.values.sort, @values_array.push('silver').sort, 'Values method did not return the supplied values.')
+    # these tests work because the entries in @values_array, followed by 'silver' are alphabetically comparable, otherwise
+    # the sort method is not necessarily stable.
   end
 
   def test_entries
-
+    entries_output = @hash_of_thirteen.entries
+    keys_output = entries_output.map { |entry| entry[0] }
+    values_output = entries_output.map { |entry| entry[1] }
+    assert_equal([keys_output.sort, values_output.sort], [@keys_array.push('moon').sort, @values_array.push('silver').sort], 'Entries method did not return the supplied keys and values.')
   end
 
   def test_overwrite_maintains_length
