@@ -23,21 +23,21 @@ class LinkedList
       # checks if index = 0, 1, .... or num
     end
   
-    def at(index)
-      return nil unless valid_index?(index, size - 1)
+    # def at(index)
+    #  return nil unless valid_index?(index, size - 1)
   
       # makes sure the index supplied is valid, return nil otherwise
   
-      current_node = @head
-      index.times { current_node = current_node.next_node }
+    #  current_node = @head
+    #  index.times { current_node = current_node.next_node }
       # head has index zero, so we need to move to the next node index times
-      current_node
-    end
+    #  current_node
+    # end
   
-    def tail
-      at(size - 1)
+    # def tail
+    #  at(size - 1)
       # at method already has guard clause in case size = 0
-    end
+    # end
   
     def list_each_with_index(default_output = nil)
       return default_output if size.zero?
@@ -85,19 +85,17 @@ class LinkedList
           previous_node = @head if index == 1
           if current_node.key == key
             remove_current_node(current_node, previous_node)
-            # need to check WHETHER this causes bug when previous_node does not exist. Does nil get supplied instead?
-            # remove_current_node CAN handle a previous_node = nil case
             return current_node.value
           end
         end
         nil
     end
   
-    def to_s
-      output_string = ''
-      list_each_with_index { |node| output_string += " Key: #{node.key}, Value: #{node.value} -> " }
-      output_string + 'nil'
-    end
+    # def to_s
+    #   output_string = ''
+    #   list_each_with_index { |node| output_string += " Key: #{node.key}, Value: #{node.value} -> " }
+    #   output_string + 'nil'
+    # end
 
     def output_entries
       output_array = []

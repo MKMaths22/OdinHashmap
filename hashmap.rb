@@ -126,23 +126,8 @@ class HashMap
     end
 end
 
-# test = HashMap.new
-# test.set('apple', 'red')
-# test.set('banana', 'yellow')
-# test.set('ice cream', 'brown')
-# test.set('carrot', 'orange')
-# test.set('dog', 'brown')
-# test.set('elephant', 'grey')
-# test.set('frog', 'green')
-# test.set('grape', 'purple')
-# test.set('hat', 'black')
-# test.set('ice cream', 'white')
-# test.set('jacket', 'blue')
-# test.set('kite', 'pink')
-# test.set('lion', 'golden')
-# test.set('apple', 'pink')
-# test.set('moon', 'silver')
-# puts "Number of buckets used is #{test.no_of_buckets_used}"
-# puts "Length of hashmap is #{test.length}"
-# puts "Entries are #{test.entries}"
-# puts "Capacity is #{test.capacity}"
+# list = LinkedList.new(['first_key'], ['first_value'])
+# puts "created list has length #{list.size}"
+# list.remove_key(list.head.key)
+# puts "list now has length #{list.size}"
+# Above lines confirmed that remove_current_node works with no previous node (i.e. removing the head).
