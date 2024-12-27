@@ -110,18 +110,18 @@ class LinkedList
       output_array
     end
   
-    def insert_at(key, value, index)
-      return 'Error, index not valid' unless valid_index?(index, size)
+    # def insert_at(key, value, index)
+    # return 'Error, index not valid' unless valid_index?(index, size)
   
       # checks index provided will fit in the given list
   
-      node_to_add = Node.new(key, value, at(index))
-      # if index = size, at(index) returns nil which is correct
+    #  node_to_add = Node.new(key, value, at(index))
+    #  if index = size, at(index) returns nil which is correct
   
-      index.zero? ? change_head(node_to_add) : at(index - 1).next_node = node_to_add
-      # either we insert a new head or previous node has link changed but not both
-      increment_size
-    end
+    #  index.zero? ? change_head(node_to_add) : at(index - 1).next_node = node_to_add
+    #   either we insert a new head or previous node has link changed but not both
+    #  increment_size
+    # end
   
     def remove_at(index)
       return unless valid_index?(index, size - 1)
@@ -137,13 +137,13 @@ class LinkedList
       removed_node
     end
 
-    def append(key, value)
-      insert_at(key, value, size)
-    end
+    # def append(key, value)
+    #   insert_at(key, value, size)
+    # end
   
-    def pop
-      remove_at(size - 1)
-    end
+    # def pop
+    #   remove_at(size - 1)
+    # end
 
     # Many methods in this class will be redundant for the Hashmap, I will delete them later as necessary
     def prepend_or_update(key, value)
